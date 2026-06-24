@@ -48,7 +48,7 @@ getCatalog <-
 .download_catalog <- function(redownload) {
     resp <- paste(
         .CATALOG_BASE_URL,
-        "api/records/17981132",
+        "api/records/20821588",
         sep = "/"
     ) |>
         request() |>
