@@ -1,6 +1,6 @@
 Package: imageFeatureTCGA
 Title: Import features from hovernet, provgigapath into a MultiAssayExperiment
-Version: 1.1.0
+Version: 1.1.1
 Authors@R: c(
     person("Marcel", "Ramos", , "marcel.ramos@sph.cuny.edu", "aut",
         c(ORCID = "0000-0002-3242-0582", affiliation = 
@@ -70,4 +70,4 @@ License: Artistic-2.0
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
-Date: 2026-03-19
+Date: 2026-06-23
