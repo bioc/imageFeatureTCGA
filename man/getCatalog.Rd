@@ -8,6 +8,7 @@
 getCatalog(
   pipeline = c("hovernet", "provgigapath"),
   format = c("csv", "thumb", "h5ad", "geojson", "json"),
+  version = c("1.1.1", "1.1.0", "1.0.0"),
   redownload = FALSE
 )
 
@@ -21,6 +22,10 @@ both.}
 \item{format}{\code{character()} One or more of "csv", "thumb", "h5ad", "geojson",
 or "json" specifying which file formats to include in the catalog. Default
 includes all.}
+
+\item{version}{\code{character(1L)} The version of the catalog to retrieve. Must
+be one of "1.1.1", "1.1.0" or "1.0.0". Default is the latest version,
+currently: "1.1.1".}
 
 \item{redownload}{\code{logical(1L)} Whether to redownload the catalog file even
 if it is already cached locally. Default is \code{FALSE}.}

@@ -16,6 +16,10 @@
 #'   or "json" specifying which file formats to include in the catalog. Default
 #'   includes all.
 #'
+#' @param version `character(1L)` The version of the catalog to retrieve. Must
+#'   be one of "1.1.1", "1.1.0" or "1.0.0". Default is the latest version,
+#'   currently: "1.1.1".
+#'
 #' @param redownload `logical(1L)` Whether to redownload the catalog file even
 #'   if it is already cached locally. Default is `FALSE`.
 #'
@@ -30,25 +34,37 @@ getCatalog <-
     function(
         pipeline = c("hovernet", "provgigapath"),
         format = c("csv", "thumb", "h5ad", "geojson", "json"),
+        version = c("1.1.1", "1.1.0", "1.0.0"),
         redownload = FALSE
     )
 {
     pipeline <- match.arg(pipeline, several.ok = TRUE)
     format <- match.arg(format, several.ok = TRUE)
-    catalog <- .download_catalog(redownload = redownload) |>
+
+    version <- match.arg(version)
+    record_id <- catalog_versions[
+        catalog_versions[["version"]] == version, "zenodoid", drop = TRUE
+    ]
+
+    catalog <-
+        .download_catalog(redownload = redownload, record_id = record_id) |>
         readr::read_tsv(col_types = .CATALOG_COL_TYPES)
+
     in_pipe <- catalog[["pipeline"]] %in% pipeline
     in_format <- catalog[["format"]] %in% format
+    message(
+        "imageTCGA_catalog_v", version, ".tsv"
+    )
     catalog[in_pipe & in_format, ]
 }
 
 .CATALOG_BASE_URL <- "https://zenodo.org"
 
 #' @importFrom httr2 request req_headers req_perform resp_body_json
-.download_catalog <- function(redownload = FALSE) {
+.download_catalog <- function(redownload = FALSE, record_id) {
     resp <- paste(
         .CATALOG_BASE_URL,
-        "api/records/20821588",
+        paste0("api/records/", record_id),
         sep = "/"
     ) |>
         request() |>
