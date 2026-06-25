@@ -155,11 +155,14 @@ multi_download_retry <- function(urls, destfiles, max_tries = 3L) {
             SIMPLIFY = TRUE
         )
 
+        ## Re-open a fresh connection for writes; the existing `bfc` holds a
+        ## shared lock from `bfcquery` which cannot be upgraded to exclusive
+        bfc_write <- BiocFileCache::BiocFileCache(cache = cache)
         locals[needed] <- mapply(
-            function(bfc, url, file, is_cached, success) {
+            function(bfc_write, url, file, is_cached, success) {
                 if (!is_cached && success)
                     BiocFileCache::bfcadd(
-                        x = bfc,
+                        x = bfc_write,
                         rname = url,
                         fpath = file,
                         rtype = "local",
@@ -174,7 +177,7 @@ multi_download_retry <- function(urls, destfiles, max_tries = 3L) {
             file = destfiles,
             is_cached = cached[needed],
             success = move_success,
-            MoreArgs = list(bfc = bfc),
+            MoreArgs = list(bfc_write = bfc_write),
             SIMPLIFY = FALSE
         )
     }
