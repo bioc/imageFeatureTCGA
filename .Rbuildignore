@@ -4,3 +4,4 @@
 .*_cache
 ^\.positai$
 ^\.claude$
+^data-raw$
