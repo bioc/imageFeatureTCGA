@@ -2,3 +2,5 @@
 ^\.Rproj\.user$
 ^\.github$
 .*_cache
+^\.positai$
+^\.claude$
