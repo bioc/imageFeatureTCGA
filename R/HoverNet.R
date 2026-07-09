@@ -289,10 +289,15 @@ setMethod("import", "HoverNetJSON", function(con, format, text, ...) {
 #' @importFrom SummarizedExperiment assay<- assays rowData colData
 #'
 #' @examplesIf interactive()
-#' hov_h5ad_file <- paste0(
-#'     "https://store.cancerdatasci.org/hovernet/h5ad/",
-#'     "TCGA-VG-A8LO-01A-01-DX1.B39A4D64-82A1-4A04-8AB6-918F3058B83B.h5ad.gz"
-#' )
+#' hov_h5ad_file <-
+#'     getCatalog("hovernet", "h5ad") |>
+#'     dplyr::filter(
+#'         filename == paste0(
+#'             "TCGA-VG-A8LO-01A-01-DX1.",
+#'             "B39A4D64-82A1-4A04-8AB6-918F3058B83B.h5ad.gz"
+#'         )
+#'     ) |>
+#'     getFileURLs()
 #' dest_h5ad <- file.path(tempdir(), basename(hov_h5ad_file))
 #' download.file(hov_h5ad_file, destfile = dest_h5ad)
 #'
@@ -342,10 +347,16 @@ setMethod("import", "HoverNetH5AD", function(con, format, text, ...) {
 #'
 #' @examples
 #' ## Import HoverNetPNG thumbnail from URL
-#' hov_png_url <- paste0(
-#'    "https://store.cancerdatasci.org/hovernet/thumb/",
-#'    "TCGA-VG-A8LO-01A-02-DX2.9B58474C-DAC0-4D45-B13C-0A1EA9E1BC32.png"
-#' )
+#' hov_png_url <-
+#'     getCatalog("hovernet", "thumb") |>
+#'     dplyr::filter(
+#'         filename == paste0(
+#'             "TCGA-VG-A8LO-01A-02-DX2.",
+#'             "9B58474C-DAC0-4D45-B13C-0A1EA9E1BC32.png"
+#'         )
+#'     ) |>
+#'     getFileURLs()
+#'
 #' HoverNet(hov_png_url) |>
 #'   import()
 #' @exportMethod import
