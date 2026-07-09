@@ -363,5 +363,5 @@ setMethod("import", "HoverNetPNG", function(con, format, text, ...) {
         png_path <- .cache_url_files(png_path)
 
     BiocBaseUtils::checkInstalled("png")
-    png::readPNG(png_path)
+    png::readPNG(png_path, ...)
 })
