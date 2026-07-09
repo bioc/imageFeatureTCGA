@@ -354,7 +354,7 @@ setMethod("import", "HoverNetH5AD", function(con, format, text, ...) {
 #'     getFileURLs()
 #'
 #' HoverNet(hov_png_url) |>
-#'   import()
+#'     import()
 #' @exportMethod import
 setMethod("import", "HoverNetPNG", function(con, format, text, ...) {
     png_path <- path(con)
