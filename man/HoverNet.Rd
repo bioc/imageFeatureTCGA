@@ -200,7 +200,5 @@ HoverNet(hov_png_url) |>
   import()
 }
 \author{
-Ilaria B., Marcel R.
-
-Sehyun O.
+Ilaria B., Sehyun O., Marcel R.
 }

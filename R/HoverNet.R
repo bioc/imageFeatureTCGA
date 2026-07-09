@@ -108,6 +108,8 @@ S4Vectors::setValidity2("HoverNet", .validHoverNet)
 #' @importFrom TENxIO TENxFile
 #' @importFrom BiocBaseUtils isScalarLogical isScalarCharacter
 #'
+#' @author Ilaria B., Sehyun O., Marcel R.
+#'
 #' @returns * `HoverNetJSON`: An object of class `HoverNetJSON`
 #' * `import,HoverNetJSON-method`: An object of class `SpatialExperiment` or
 #'   `SpatialFeatureExperiment` containing the cell data and spatial
@@ -188,8 +190,6 @@ setMethod("show", "HoverNetJSON", function(object) {
 #' @importFrom BiocBaseUtils checkInstalled
 #' @importFrom rjsoncons j_query
 #' @importFrom S4Vectors metadata metadata<-
-#'
-#' @author Ilaria B., Marcel R.
 #'
 #' @examplesIf interactive()
 #' ## Manual download and local file input
@@ -284,8 +284,6 @@ setMethod("import", "HoverNetJSON", function(con, format, text, ...) {
 #'   `SpatialExperiment` object contains the cell data in the `colData` slot and
 #'   spatial coordinates in the `spatialCoords` slot of the object.
 #'
-#' @author Sehyun O.
-#'
 #' @importFrom SummarizedExperiment assay<- assays rowData colData
 #'
 #' @examplesIf interactive()
@@ -342,8 +340,6 @@ setMethod("import", "HoverNetH5AD", function(con, format, text, ...) {
 )
 
 #' @rdname HoverNet
-#'
-#' @author Ilaria B., Marcel R.
 #'
 #' @examples
 #' ## Import HoverNetPNG thumbnail from URL
