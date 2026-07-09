@@ -109,14 +109,21 @@ columns for slide names, tumor type, and embedding values.
 \examples{
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 ## Importing a slide_level ProvGiga CSV file from a local path
-slide_prov_url <- paste0(
-    "https://store.cancerdatasci.org/provgigapath/slide_level/",
-    "TCGA-OR-A5JJ-01Z-00-DX1.459B5DFE-47B1-426F-B009-7664C1B6FEEC.csv.gz"
-)
+slide_prov_url <-
+    getCatalog(pipeline = "provgigapath", format = "csv") |>
+    dplyr::filter(
+        level == "slide_level" &
+            filename == paste0(
+                "TCGA-OR-A5JJ-01Z-00-DX1.",
+                "459B5DFE-47B1-426F-B009-7664C1B6FEEC.csv.gz"
+            )
+    ) |>
+    getFileURLs()
+
 slide_file <- file.path(tempdir(), basename(slide_prov_url))
 download.file(slide_prov_url, destfile = slide_file)
 
-ProvGiga(slide_file, tumorType = "TCGA_ACC") |>
+ProvGiga(slide_file, level = "slide_level", tumorType = "TCGA_ACC") |>
     import()
 
 ## Importing a slide_level ProvGiga CSV file from a URL
@@ -124,10 +131,16 @@ ProvGiga(slide_prov_url, tumorType = "TCGA_ACC") |>
     import()
 
 ## Import tile_level ProvGiga CSV file from a URL
-tile_prov_url <- paste0(
-   "https://store.cancerdatasci.org/provgigapath/tile_level/",
-   "TCGA-AA-3556-01Z-00-DX1.63a74b91-44e8-4ffd-8737-bcf6992183c3.csv.gz"
-)
+tile_prov_url <-
+    getCatalog(pipeline = "provgigapath", format = "csv") |>
+    dplyr::filter(
+        level == "tile_level" &
+        filename == paste0(
+            "TCGA-AA-3556-01Z-00-DX1.",
+            "63a74b91-44e8-4ffd-8737-bcf6992183c3.csv.gz"
+        )
+    ) |>
+    getFileURLs()
 
 ProvGiga(tile_prov_url, tumorType = "TCGA_COAD") |>
     import()
