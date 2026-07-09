@@ -200,7 +200,7 @@ hov_png_url <-
     getFileURLs()
 
 HoverNet(hov_png_url) |>
-  import()
+    import()
 
 hov_parq_url <-
     getCatalog("hovernet", "parquet") |>
