@@ -79,6 +79,12 @@ S4Vectors::setValidity2("HoverNet", .validHoverNet)
     contains = "HoverNet"
 )
 
+#' @exportClass HoverNetParquet
+.HoverNetParquet <- setClass(
+    Class = "HoverNetParquet",
+    contains = "HoverNet"
+)
+
 #' @rdname HoverNet
 #'
 #' @description The `HoverNetJSON` constructor function creates an instance
@@ -136,6 +142,7 @@ HoverNet <- function(
     isJSON <- grepl("\\.json(\\.gz)?$", path_res, TRUE)
     isH5AD <- grepl("\\.h5ad(\\.gz)$", path_res, TRUE)
     isPNG <- grepl("\\.png$", path_res, TRUE)
+    isParquet <- grepl("\\.parquet$", path_res, TRUE)
     if (!is(resource, "TENxFile"))
         resource <- TENxIO::TENxFile(resource)
     outClass <- match.arg(outClass)
@@ -149,6 +156,8 @@ HoverNet <- function(
         )
     else if (isPNG)
         .HoverNetPNG(resource, is_url = is_url)
+    else if (isParquet)
+        .HoverNetParquet(resource, is_url = is_url)
     else
         stop(
             "Unsupported file format. Provide a JSON or H5AD file for HoverNet."
@@ -364,4 +373,32 @@ setMethod("import", "HoverNetPNG", function(con, format, text, ...) {
 
     BiocBaseUtils::checkInstalled("png")
     png::readPNG(png_path, ...)
+})
+
+#' @rdname HoverNet
+#'
+#' @examples
+#'
+#' hov_parq_url <-
+#'     getCatalog("hovernet", "parquet") |>
+#'     dplyr::filter(
+#'         filename == paste0(
+#'             "TCGA-A6-2675-01Z-00-DX1.",
+#'             "d37847d6-c17f-44b9-b90a-84cd1946c8ab.parquet"
+#'         )
+#'     ) |>
+#'     getFileURLs()
+#'
+#' HoverNet(hov_parq_url) |>
+#'    import()
+#' @exportMethod import
+setMethod("import", "HoverNetParquet", function(con, format, text, ...) {
+    parq_path <- path(con)
+
+    if (con@is_url)
+        parq_path <- .cache_url_files(parq_path)
+
+    BiocBaseUtils::checkInstalled("arrow")
+
+    arrow::read_parquet(parq_path, ...)
 })

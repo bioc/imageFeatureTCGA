@@ -7,7 +7,7 @@
 \usage{
 getCatalog(
   pipeline = c("hovernet", "provgigapath"),
-  format = c("csv", "thumb", "h5ad", "geojson", "json"),
+  format = c("csv", "thumb", "h5ad", "geojson", "parquet", "json"),
   version = c("1.1.1", "1.1.0", "1.0.0"),
   redownload = FALSE
 )

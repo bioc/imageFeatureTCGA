@@ -12,6 +12,7 @@
 \alias{import,HoverNetH5AD,ANY,ANY-method}
 \alias{.HoverNetPNG}
 \alias{import,HoverNetPNG,ANY,ANY-method}
+\alias{import,HoverNetParquet,ANY,ANY-method}
 \title{Import Hovernet JSON, H5AD, and PNG files into Bioconductor classes}
 \usage{
 HoverNet(
@@ -27,6 +28,8 @@ HoverNet(
 \S4method{import}{HoverNetH5AD,ANY,ANY}(con, format, text, ...)
 
 \S4method{import}{HoverNetPNG,ANY,ANY}(con, format, text, ...)
+
+\S4method{import}{HoverNetParquet,ANY,ANY}(con, format, text, ...)
 }
 \arguments{
 \item{resource}{\code{character(1)} the file path or URL to the Hovernet JSON
@@ -197,7 +200,20 @@ hov_png_url <-
     getFileURLs()
 
 HoverNet(hov_png_url) |>
-    import()
+  import()
+
+hov_parq_url <-
+    getCatalog("hovernet", "parquet") |>
+    dplyr::filter(
+        filename == paste0(
+            "TCGA-A6-2675-01Z-00-DX1.",
+            "d37847d6-c17f-44b9-b90a-84cd1946c8ab.parquet"
+        )
+    ) |>
+    getFileURLs()
+
+HoverNet(hov_parq_url) |>
+   import()
 }
 \author{
 Ilaria B., Sehyun O., Marcel R.
