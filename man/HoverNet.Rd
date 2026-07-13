@@ -7,6 +7,7 @@
 \alias{HoverNetJSON-class}
 \alias{HoverNetH5AD-class}
 \alias{HoverNetPNG-class}
+\alias{HoverNetParquet-class}
 \alias{show,HoverNetJSON-method}
 \alias{import,HoverNetJSON,ANY,ANY-method}
 \alias{import,HoverNetH5AD,ANY,ANY-method}

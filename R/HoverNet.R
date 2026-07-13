@@ -9,7 +9,7 @@
 #' @name HoverNet
 #'
 #' @aliases HoverNet-class HoverNetJSON-class HoverNetH5AD-class
-#' @aliases HoverNetPNG-class
+#' @aliases HoverNetPNG-class HoverNetParquet-class
 #'
 #' @title Import Hovernet JSON, H5AD, and PNG files into Bioconductor classes
 #'
